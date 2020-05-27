@@ -13,7 +13,6 @@ test_cases = {
         "name": "simple_case_1",
         "cmd": path.join(TEST_DIR, "copier.py"),
         "input": path.join(FIXTURE_DIR, "input.txt"),
-        "output": "foo.out",
         "expected": path.join(FIXTURE_DIR, "input_expected.txt"),
         "ok": True,
     },
@@ -21,11 +20,11 @@ test_cases = {
 
 
 def test_case_1(tmpdir):
-    print(tmpdir)
     name = "simple_case_1"
     test_case = test_cases[name]
     assert test_case is not None
-    output = path.join(tmpdir, test_case["output"])
+    output = path.join(tmpdir, name)
+    print("Output file:", output)
     rc = system([test_case["cmd"], test_case["input"], output])
-    assert rc == test_case["ok"]
-    assert cmp(output, test_case["expected"]) == True
+    assert rc is test_case["ok"]
+    assert cmp(output, test_case["expected"]) is True
