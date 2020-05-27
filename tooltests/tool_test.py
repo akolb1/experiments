@@ -20,18 +20,12 @@ test_cases = {
 }
 
 
-def cleanup(file):
-    remove(file)
-
-
 def test_case_1(tmpdir):
+    print(tmpdir)
     name = "simple_case_1"
     test_case = test_cases[name]
     assert test_case is not None
     output = path.join(tmpdir, test_case["output"])
     rc = system([test_case["cmd"], test_case["input"], output])
-    try:
-        assert rc == test_case["ok"]
-        assert cmp(output, test_case["expected"]) == True
-    finally:
-        cleanup(output)
+    assert rc == test_case["ok"]
+    assert cmp(output, test_case["expected"]) == True
